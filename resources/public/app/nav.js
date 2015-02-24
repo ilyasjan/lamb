@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+var videos = [];
 var demoModule = {
     init: function() {
         this.els = {};
@@ -95,7 +96,7 @@ function renderVP(p){
         dataType: 'json',
         type: 'GET',
         success: function(data, status, header, something) {
-            var videos = data;
+            videos = data;
             demoModule.init();
         },
         error: function(xhr, status, err) {
@@ -103,8 +104,6 @@ function renderVP(p){
         }
     });
 }
-
-
 var pl = getUrlParameter('pl');
 if (!pl)
     pl = "";
