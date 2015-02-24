@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Carpe Diem</title>
+    <script type="text/javascript" src="ext/video.js"></script>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="ext/videojs-playlists.min.js"></script>
+    <link href="ext/video-js.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://belelros.github.io/videojs-playLists/css/main.css" />
+    <style>
+        .playlist {
+            height: 470px;
+            width: 180px;
+        }
+        body {
+            background: radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
+            background-color: #282828;
+            background-size: 16px 16px;
+        }
+    </style>
+</head>
+
+<body class="container">
+
+    <div class="video-holder centered">
+      <h2><span style="color:red;margin-left:10px;"><a href="http://soz.la">SOZ.LA</a></span><small style="margin-left:8px;"> quality content</small> </h3>
+
+        <video id="video" class="video-js vjs-default-skin"
+               controls preload="auto" width="820" height="500"
+               data-setup='' autoplay
+               poster="">
+        </video>
+        <div class="playlist-components">
+            <div class="playlist">
+                <ul></ul>
+            </div>
+            <div class="button-holder">
+                <img id="prev" alt="Previous video" src="http://belelros.github.io/videojs-playLists/img/Previous.png">
+                <img id="next" alt="Next video" src="http://belelros.github.io/videojs-playLists/img/Next.png">
+            </div>
+        </div>
+
+    </div>
+    <script>
+function getUrlParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+}
+var pl = getUrlParameter('pl');
+if (!pl) pl="";
+        jQuery.ajax({
+            url: 'playlist-content?pl=' + pl,
+            dataType: 'json',
+            type: 'GET',
+            success: function(data, status, header, something) {
+                var videos = data;
+
+
+
+  var demoModule = {
+    init : function(){
+      this.els = {};
+      this.cacheElements();
+      this.initVideo();
+      this.createListOfVideos();
+      this.bindEvents();
+      this.overwriteConsole();
+    },
+    overwriteConsole : function(){
+      console._log = console.log;
+      console.log = this.log;
+    },
+    log : function(string){
+      demoModule.els.log.append('<p>' + string + '</p>');
+      console._log(string);
+    },
+    cacheElements : function(){
+      this.els.$playlist = $('div.playlist > ul');
+      this.els.$next = $('#next');
+      this.els.$prev = $('#prev');
+      this.els.log = $('div.panels > pre');
+    },
+    initVideo : function(){
+      this.player = videojs('video');
+      this.player.playList(videos);
+    },
+    createListOfVideos : function(){
+      var html = '';
+      for (var i = 0, len = this.player.pl.videos.length; i < len; i++){
+        html += '<li data-videoplaylist="'+ i +'">'+
+           //       '<span class="number">' + (i + 1) + '</span>'+
+       //           '<span class="poster"><img src="'+ videos[i].poster +'"></span>' +
+                  '<span class="title">'+ videos[i].title +'</span>' +
+                '</li>';
+      }
+      this.els.$playlist.empty().html(html);
+      this.updateActiveVideo();
+    },
+    updateActiveVideo : function(){
+      var activeIndex = this.player.pl.current;
+
+      this.els.$playlist.find('li').removeClass('active');
+      this.els.$playlist.find('li[data-videoplaylist="' + activeIndex +'"]').addClass('active');
+    },
+    bindEvents : function(){
+      var self = this;
+      this.els.$playlist.find('li').on('click', $.proxy(this.selectVideo,this));
+      this.els.$next.on('click', $.proxy(this.nextOrPrev,this));
+      this.els.$prev.on('click', $.proxy(this.nextOrPrev,this));
+      this.player.on('next', function(e){
+        console.log('Next video');
+        self.updateActiveVideo.apply(self);
+      });
+      this.player.on('prev', function(e){
+        console.log('Previous video');
+        self.updateActiveVideo.apply(self);
+      });
+      this.player.on('lastVideoEnded', function(e){
+        console.log('Last video has finished');
+      });
+    },
+    nextOrPrev : function(e){
+      var clicked = $(e.target);
+      this.player[clicked.attr('id')]();
+    },
+    selectVideo : function(e){
+      var clicked = e.target.nodeName === 'LI' ? $(e.target) : $(e.target).closest('li');
+
+      if (!clicked.hasClass('active')){
+        console.log('Selecting video');
+        var videoIndex = clicked.data('videoplaylist');
+        this.player.playList(videoIndex);
+        this.updateActiveVideo();
+      }
+    }
+  };
+
+  demoModule.init();
+
+
+            },
+            error: function(xhr, status, err) {
+                //console.error(status, err.toString());
+            }
+        });
+    </script>
+</body>
+
+</html>
