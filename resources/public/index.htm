@@ -4,10 +4,13 @@
 <head>
     <meta charset="utf-8">
     <title>Carpe Diem</title>
+
+
+    <script type="text/javascript" src="node_modules/react/dist/react.min.js"></script>
+    <script type="text/javascript" src="node_modules/jquery/dist/cdn/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="ext/video.js"></script>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="ext/videojs-playlists.min.js"></script>
-    <link href="ext/video-js.min.css" rel="stylesheet">
+    <link href="ext/video-js.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="http://belelros.github.io/videojs-playLists/css/main.css" />
     <style>
@@ -15,18 +18,14 @@
             height: 470px;
             width: 180px;
         }
-        body {
-            background: radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
-            background-color: #282828;
-            background-size: 16px 16px;
-        }
     </style>
 </head>
 
 <body class="container">
 
-    <div class="video-holder centered">
-      <h2><span style="color:red;margin-left:10px;"><a href="http://soz.la">SOZ.LA</a></span><small style="margin-left:8px;"> quality content</small> </h3>
+  <div class="video-holder centered">
+    <div id="content" >
+  </div>
 
         <video id="video" class="video-js vjs-default-skin"
                controls preload="auto" width="820" height="500"
@@ -43,7 +42,8 @@
             </div>
         </div>
 
-    </div>
+</div>
+
     <script>
 function getUrlParameter(sParam)
 {
@@ -155,7 +155,8 @@ if (!pl) pl="";
                 //console.error(status, err.toString());
             }
         });
-    </script>
+                                                              </script>
+    <script  src="build/nav.js"></script>
 </body>
 
 </html>
