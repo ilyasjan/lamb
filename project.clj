@@ -14,6 +14,8 @@
             ]
   :ring {:handler lamb.handler/app}
   :main lamb.handler
+  :repl-options {:port 55555
+                   :host "0.0.0.0"}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}})
