@@ -17,7 +17,10 @@
                                   (conj [] (str "http://61.128.123.107/res/" pl "/" (.getName x)))
                                   :title (str  (apply str  (take 33  (.getName x)) ) "...")
                                   })(rest (-> (str  "/home/yusupjan/res" pl) io/file file-seq))))
-
+(defn contains-illegal? [s]
+  (not
+   (empty?
+    (re-seq #"[\\.<>!\\?\+]" s))))
 
 (defroutes app-routes
   (GET "/playlists" [] (fn [req]
@@ -27,7 +30,7 @@
                                   (if (str/blank? pl)
                                     (response
                                      (shuffle (get-pl "Pop2015")))
-                                    (if (tricks/contains-illegal? pl)
+                                    (if (contains-illegal? pl)
                                       (response (shuffle (get-pl "Pop2015")))
                                       (response (shuffle (get-pl pl))))))))
   (GET "/" [] "Hello World")
