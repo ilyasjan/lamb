@@ -110,7 +110,6 @@ if (!pl)
 else
     renderVP(pl);
 
-
 var PLList = React.createClass({
     getInitialState: function() {
         return {data: []};
