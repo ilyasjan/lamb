@@ -43,10 +43,10 @@
                                 (let [pl (get-in req [:params :pl])]
                                   (if (str/blank? pl)
                                     (response
-                                     (shuffle (get-pl "LinuxIntro")))
+                                     (get-pl "LinuxIntro"))
                                     (if (contains-illegal? pl)
-                                      (response (shuffle (get-pl "LinuxIntro")))
-                                      (response (shuffle (get-pl pl))))))))
+                                      (response (get-pl "LinuxIntro"))
+                                      (response (get-pl pl)))))))
 
 
   (GET "/" [] "Hello World")
