@@ -1,6 +1,9 @@
 # lamb
 
-FIXME
+
+```
+jsx --watch app build
+```
 
 ## Prerequisites
 

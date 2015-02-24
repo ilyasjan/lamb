@@ -50,7 +50,7 @@
                                       (response (get-pl pl)))))))
 
 
-  (GET "/hi" [] "Hello World")
+  (GET "/" [] "Hello World")
   (route/resources "/")
   (route/not-found "Not Found"))
 
