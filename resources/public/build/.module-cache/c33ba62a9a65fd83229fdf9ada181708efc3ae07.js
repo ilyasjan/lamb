@@ -122,7 +122,7 @@ var PLList = React.createClass({displayName: "PLList",
             dataType: 'json',
             success: function(data) {
                 this.setState({data: data});
-                if (pl== "" && data && data.length >0)
+                if (!pl)
                     renderVP(data[0]);
             }.bind(this),
             error: function(xhr, status, err) {
