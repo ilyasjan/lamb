@@ -3,12 +3,10 @@
             [compojure.route :as route]
             [com.ebaxt.ring-rewrite :refer [rewrite-page wrap-rewrite]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
-  (:use [clojure.java.browse]
+  (:use
         [ring.middleware.json :only [wrap-json-response]]
         [ring.util.response :only [response file-response redirect content-type]]
-        [clojure.tools.namespace.repl :only (refresh)]
-        [ring.middleware ratelimit]
-        [scholar.util.tricks :only [conf start-profiling]]))
+        ))
 
 
 ;;61.128.123.107/res
