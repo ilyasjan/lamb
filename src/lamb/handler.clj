@@ -1,6 +1,7 @@
 (ns lamb.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
+            [clojure.java.io :as io]
             [com.ebaxt.ring-rewrite :refer [rewrite-page wrap-rewrite]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
   (:use
