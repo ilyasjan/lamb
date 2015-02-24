@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+
 var PLList = React.createClass({displayName: "PLList",
     getInitialState: function() {
         return {data: []};
@@ -19,12 +20,12 @@ var PLList = React.createClass({displayName: "PLList",
     render: function() {
         var plNodes = this.state.data.map(
             function (pl) {return (
-                    React.createElement("li", null, 
+                    React.createElement("li", null,
                     React.createElement("a", {href:  "index.htm?pl=" + pl}, pl)
                     ));
                    });
         return (
-                React.createElement("ul", {className: "nav nav-pills"}, 
+                React.createElement("ul", {className: "nav nav-pills"},
                 plNodes
             )
         );
