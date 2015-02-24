@@ -17,9 +17,11 @@
 
 (defn get-pl [pl]   (map (fn [x] {:src
                                   (conj [] (str apache-url pl "/" (.getName x)))
-                                  :title (str  (apply str  (take 33  (.getName x)) ) "...")
+                                  :title (str  (apply str  (take 50  (.getName x)) ) "...")
                                   })(rest (-> (str  res-dir pl) io/file file-seq))))
 
+
+(get-pl "Swift & Databases")
 
 (defn get-pls []
   (map #(.getName %)
