@@ -20,7 +20,7 @@ var PLList = React.createClass({
         var plNodes = this.state.data.map(
             function (pl) {return (
                     <li>
-                    <a href={ "v.htm?pl=" + pl }>{pl}</a>
+                    <a href={ "index.htm?pl=" + pl }>{pl}</a>
                     </li>);
                    });
         return (
