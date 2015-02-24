@@ -12,13 +12,14 @@
 
 
 
-(def res-dir "/home/yusupjan/res")
+(def res-dir "/home/yusupjan/res/")
 (def apache-url "http://61.128.123.107/res/")
 
 (defn get-pl [pl]   (map (fn [x] {:src
                                   (conj [] (str apache-url pl "/" (.getName x)))
                                   :title (str  (apply str  (take 33  (.getName x)) ) "...")
                                   })(rest (-> (str  res-dir pl) io/file file-seq))))
+
 
 (defn get-pls []
   (map #(.getName %)
@@ -49,7 +50,7 @@
                                       (response (get-pl pl)))))))
 
 
-  (GET "/" [] "Hello World")
+  (GET "/hi" [] "Hello World")
   (route/resources "/")
   (route/not-found "Not Found"))
 
